@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - ShopSphere</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/checkout.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo" onclick="window.location.href='index.html'">
+          <h1>ShopSphere</h1>
+        </div>
+
+        <div class="search-container">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            id="main-search"
+          />
+        </div>
+
+        <div class="nav-icons">
+          <div class="nav-icon" onclick="window.location.href='cart.html'">
+            <i class="bx bx-cart"></i>
+            <span class="cart-badge" id="cart-count">0</span>
+          </div>
+          <div class="nav-icon" onclick="window.location.href='wishlist.html'">
+            <i class="bx bx-heart"></i>
+            <span class="wishlist-badge" id="wishlist-count">0</span>
+          </div>
+          <div class="nav-icon" onclick="window.location.href='profile.html'">
+            <i class="bx bx-user"></i>
+          </div>
+        </div>
+      </nav>
+
+      <div class="main-nav">
+        <div class="nav-container">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li class="categories-dropdown">
+              <a href="#" class="categories-link"
+                >Categories <i class="bx bx-chevron-down"></i
+              ></a>
+              <ul class="categories-menu">
+                <li>
+                  <a href="shop.html?category=electronics">Electronics</a>
+                </li>
+                <li><a href="shop.html?category=clothing">Clothing</a></li>
+                <li><a href="shop.html?category=books">Books</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="checkout-section">
+        <h2>Checkout</h2>
+        <div class="checkout-container">
+          <div class="left-column">
+            <div class="shipping-form">
+              <h3>Shipping Details</h3>
+              <form id="shipping-form">
+                <div class="form-group">
+                  <label for="full-name">Full Name</label>
+                  <input type="text" id="full-name" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" required />
+                </div>
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <input type="text" id="address" required />
+                </div>
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" id="city" required />
+                </div>
+                <div class="form-group">
+                  <label for="zip-code">ZIP Code</label>
+                  <input type="text" id="zip-code" required />
+                </div>
+              </form>
+            </div>
+
+            <div class="card-form">
+              <h3>Card Details</h3>
+              <form id="card-form">
+                <div class="form-group">
+                  <label for="card-number">Card Number</label>
+                  <input
+                    type="text"
+                    id="card-number"
+                    placeholder="1234 5678 9012 3456"
+                    required
+                  />
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="expiry">Expiry Date</label>
+                    <input
+                      type="text"
+                      id="expiry"
+                      placeholder="MM/YY"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" placeholder="123" required />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div id="checkout-items">
+              <!-- Order items will be loaded here -->
+            </div>
+            <div class="summary-totals">
+              <div class="summary-item">
+                <span>Subtotal:</span>
+                <span id="checkout-subtotal">$0.00</span>
+              </div>
+              <div class="summary-item">
+                <span>Shipping:</span>
+                <span id="shipping-cost">$5.99</span>
+              </div>
+              <div class="summary-item">
+                <span>Tax:</span>
+                <span id="checkout-tax">$0.00</span>
+              </div>
+              <div class="summary-item total">
+                <span>Total:</span>
+                <span id="checkout-total">$0.00</span>
+              </div>
+            </div>
+            <button id="place-order-btn" class="place-order-btn">
+              Place Order
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ShopSphere</h3>
+          <p>
+            Where style meets sophistication. Discover the latest trends in
+            ShopSphere and redefine your wardrobe with our curated collection.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-pinterest"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="shop.html?category=clothing">Clothing</a></li>
+            <li><a href="shop.html?category=electronics">Electronics</a></li>
+            <li><a href="shop.html?category=books">Books</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Customer Service</h4>
+          <ul class="footer-links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns & Exchanges</a></li>
+            <li><a href="#">Size Guide</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Sustainability</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section newsletter-section">
+          <h4>Newsletter</h4>
+          <p>
+            Subscribe to get updates on new arrivals, exclusive offers, and
+            fashion tips.
+          </p>
+          <form class="newsletter-form" id="newsletter-form">
+            <div class="input-group">
+              <input type="email" placeholder="Enter your email" required />
+              <button type="submit" class="newsletter-btn">
+                <i class="bx bx-send"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <p>&copy; 2024 ShopSphere. All rights reserved.</p>
+          <div class="payment-methods">
+            <i class="bx bxl-visa"></i>
+            <i class="bx bxl-mastercard"></i>
+            <i class="bx bxl-paypal"></i>
+            <i class="bx bxl-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/checkout.js"></script>
+  </body>
+</html>

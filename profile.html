@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - ShopSphere</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo" onclick="window.location.href='index.html'">
+          <h1>ShopSphere</h1>
+        </div>
+
+        <div class="search-container">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            id="main-search"
+          />
+        </div>
+
+        <div class="nav-icons">
+          <div class="nav-icon" onclick="window.location.href='cart.html'">
+            <i class="bx bx-cart"></i>
+            <span class="cart-badge" id="cart-count">0</span>
+          </div>
+          <div class="nav-icon" onclick="window.location.href='wishlist.html'">
+            <i class="bx bx-heart"></i>
+            <span class="wishlist-badge" id="wishlist-count">0</span>
+          </div>
+          <div class="nav-icon" onclick="window.location.href='profile.html'">
+            <i class="bx bx-user"></i>
+          </div>
+        </div>
+      </nav>
+
+      <div class="main-nav">
+        <div class="nav-container">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li class="categories-dropdown">
+              <a href="#" class="categories-link"
+                >Categories <i class="bx bx-chevron-down"></i
+              ></a>
+              <ul class="categories-menu">
+                <li>
+                  <a href="shop.html?category=electronics">Electronics</a>
+                </li>
+                <li><a href="shop.html?category=clothing">Clothing</a></li>
+                <li><a href="shop.html?category=books">Books</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="profile-section">
+        <h2>My Profile</h2>
+        <div class="profile-main-grid">
+          <div class="profile-card" id="profile-card"></div>
+          <div class="profile-details-card" id="profile-details-card"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ShopSphere</h3>
+          <p>
+            Where style meets sophistication. Discover the latest trends in
+            ShopSphere and redefine your wardrobe with our curated collection.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-pinterest"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="shop.html?category=clothing">Clothing</a></li>
+            <li><a href="shop.html?category=electronics">Electronics</a></li>
+            <li><a href="shop.html?category=books">Books</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Customer Service</h4>
+          <ul class="footer-links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns & Exchanges</a></li>
+            <li><a href="#">Size Guide</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Sustainability</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section newsletter-section">
+          <h4>Newsletter</h4>
+          <p>
+            Subscribe to get updates on new arrivals, exclusive offers, and
+            fashion tips.
+          </p>
+          <form class="newsletter-form" id="newsletter-form">
+            <div class="input-group">
+              <input type="email" placeholder="Enter your email" required />
+              <button type="submit" class="newsletter-btn">
+                <i class="bx bx-send"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <p>&copy; 2024 ShopSphere. All rights reserved.</p>
+          <div class="payment-methods">
+            <i class="bx bxl-visa"></i>
+            <i class="bx bxl-mastercard"></i>
+            <i class="bx bxl-paypal"></i>
+            <i class="bx bxl-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        updateCartCountDisplay();
+        updateWishlistCountDisplay();
+        renderProfilePage();
+      });
+
+      function updateCartCountDisplay() {
+        const cartCountElements = document.querySelectorAll('#cart-count');
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const cartCount = cart.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
+        cartCountElements.forEach((element) => {
+          element.textContent = cartCount;
+          if (cartCount === 0) {
+            element.style.display = 'none';
+          } else {
+            element.style.display = 'flex';
+          }
+        });
+      }
+
+      function updateWishlistCountDisplay() {
+        const wishlistCountElements =
+          document.querySelectorAll('#wishlist-count');
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        const wishlistCount = wishlist.length;
+
+        wishlistCountElements.forEach((element) => {
+          element.textContent = wishlistCount;
+          if (wishlistCount === 0) {
+            element.style.display = 'none';
+          } else {
+            element.style.display = 'flex';
+          }
+        });
+      }
+
+      function showMessage(message, type = 'success') {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}`;
+        messageDiv.textContent = message;
+        messageDiv.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          padding: 1rem 1.5rem;
+          border-radius: 8px;
+          color: white;
+          font-weight: 500;
+          z-index: 10000;
+          animation: slideInRight 0.3s ease-out;
+          max-width: 300px;
+          word-wrap: break-word;
+        `;
+
+        if (type === 'success') {
+          messageDiv.style.background =
+            'linear-gradient(135deg, #4caf50, #45a049)';
+        } else {
+          messageDiv.style.background =
+            'linear-gradient(135deg, #f44336, #d32f2f)';
+        }
+
+        document.body.appendChild(messageDiv);
+
+        setTimeout(() => {
+          messageDiv.style.animation = 'slideOutRight 0.3s ease-in';
+          setTimeout(() => {
+            document.body.removeChild(messageDiv);
+          }, 300);
+        }, 3000);
+      }
+
+      function renderProfilePage() {
+        const card = document.getElementById('profile-card');
+        const details = document.getElementById('profile-details-card');
+        let currentUser = JSON.parse(
+          localStorage.getItem('currentUser') || 'null'
+        );
+
+        if (currentUser) {
+          card.innerHTML = `
+            <div class="profile-avatar-large">
+              <i class="bx bx-user" style="font-size: 4rem; color: #ccc"></i>
+            </div>
+            <h3>${currentUser.username}</h3>
+            <p>${currentUser.email}</p>
+            <button class="cta-button" onclick="logoutUser()">
+              <i class="bx bx-log-out" style="margin-right: 8px;"></i>
+              Logout
+            </button>
+          `;
+
+          details.innerHTML = `
+            <h3 class="profile-details-title">Personal Information</h3>
+            <form id="profile-edit-form" class="profile-edit-form">
+              <div class="profile-form-row">
+                <div class="profile-form-group">
+                  <label for="edit-username">Full Name</label>
+                  <input type="text" id="edit-username" value="${
+                    currentUser.username
+                  }" required />
+                </div>
+                <div class="profile-form-group">
+                  <label for="edit-email">Email</label>
+                  <input type="email" id="edit-email" value="${
+                    currentUser.email
+                  }" required />
+                </div>
+              </div>
+              <div class="profile-form-row">
+                <div class="profile-form-group">
+                  <label for="edit-phone">Phone</label>
+                  <input type="tel" id="edit-phone" value="${
+                    currentUser.phone || ''
+                  }" placeholder="Enter your phone number" />
+                </div>
+                <div class="profile-form-group">
+                  <label for="edit-country">Country</label>
+                  <input type="text" id="edit-country" value="${
+                    currentUser.country || ''
+                  }" placeholder="Enter your country" />
+                </div>
+              </div>
+              <div class="profile-form-group">
+                <label for="edit-address">Address</label>
+                <input type="text" id="edit-address" value="${
+                  currentUser.address || ''
+                }" placeholder="Enter your full address" />
+              </div>
+              <div class="profile-form-row">
+                <div class="profile-form-group">
+                  <label for="edit-city">City</label>
+                  <input type="text" id="edit-city" value="${
+                    currentUser.city || ''
+                  }" placeholder="Enter your city" />
+                </div>
+                <div class="profile-form-group">
+                  <label for="edit-state">State</label>
+                  <input type="text" id="edit-state" value="${
+                    currentUser.state || ''
+                  }" placeholder="Enter your state" />
+                </div>
+                <div class="profile-form-group">
+                  <label for="edit-zip">ZIP Code</label>
+                  <input type="text" id="edit-zip" value="${
+                    currentUser.zip || ''
+                  }" placeholder="ZIP" />
+                </div>
+              </div>
+              <button type="submit" class="cta-button">
+                <i class="bx bx-save" style="margin-right: 8px;"></i>
+                Save Changes
+              </button>
+            </form>
+          `;
+          setupProfileEditForm();
+        } else {
+          card.innerHTML = `
+            <div class="profile-avatar-large">
+              <i class="bx bx-user-plus" style="font-size: 4rem; color: #ccc"></i>
+            </div>
+                         <h3>Welcome to ShopSphere</h3>
+            <p>Create your account to access exclusive features and manage your profile.</p>
+          `;
+
+          details.innerHTML = `
+            <h3 class="profile-details-title">Create Your Account</h3>
+            <form id="signup-form" class="signup-form">
+              <div class="form-group">
+                <input type="text" id="signup-username" placeholder="Full Name" required />
+              </div>
+              <div class="form-group">
+                <input type="email" id="signup-email" placeholder="Email Address" required />
+              </div>
+              <div class="form-group">
+                <input type="password" id="signup-password" placeholder="Password (min 6 characters)" required minlength="6" />
+              </div>
+              <button type="submit" class="cta-button">
+                <i class="bx bx-user-plus" style="margin-right: 8px;"></i>
+                Create Account
+              </button>
+            </form>
+            <div style="margin-top: 1.5rem; text-align: center;">
+              <p style="color: #ccc; font-size: 0.9rem;">
+                By creating an account, you agree to our Terms of Service and Privacy Policy.
+              </p>
+            </div>
+          `;
+          setupSignUpForm();
+        }
+      }
+
+      function setupSignUpForm() {
+        const form = document.getElementById('signup-form');
+        if (!form) return;
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const username = document
+            .getElementById('signup-username')
+            .value.trim();
+          const email = document.getElementById('signup-email').value.trim();
+          const password = document.getElementById('signup-password').value;
+
+          if (!username || !email || !password) {
+            showMessage('Please fill in all fields.', 'error');
+            return;
+          }
+
+          if (password.length < 6) {
+            showMessage(
+              'Password must be at least 6 characters long.',
+              'error'
+            );
+            return;
+          }
+
+          if (!isValidEmail(email)) {
+            showMessage('Please enter a valid email address.', 'error');
+            return;
+          }
+
+          let users = JSON.parse(localStorage.getItem('users') || '[]');
+          if (users.find((u) => u.email === email)) {
+            showMessage('An account with this email already exists.', 'error');
+            return;
+          }
+
+          const newUser = {
+            username,
+            email,
+            password,
+            createdAt: new Date().toISOString(),
+          };
+          users.push(newUser);
+          localStorage.setItem('users', JSON.stringify(users));
+          localStorage.setItem('currentUser', JSON.stringify(newUser));
+
+          showMessage(
+            'Account created successfully! Welcome to ShopSphere!',
+            'success'
+          );
+          setTimeout(() => {
+            renderProfilePage();
+          }, 1500);
+        });
+      }
+
+      function setupProfileEditForm() {
+        const form = document.getElementById('profile-edit-form');
+        if (!form) return;
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          let currentUser = JSON.parse(
+            localStorage.getItem('currentUser') || 'null'
+          );
+          if (!currentUser) return;
+
+          const username = document
+            .getElementById('edit-username')
+            .value.trim();
+          const email = document.getElementById('edit-email').value.trim();
+
+          if (!username || !email) {
+            showMessage('Name and email are required fields.', 'error');
+            return;
+          }
+
+          if (!isValidEmail(email)) {
+            showMessage('Please enter a valid email address.', 'error');
+            return;
+          }
+
+          // Check if email is already taken by another user
+          let users = JSON.parse(localStorage.getItem('users') || '[]');
+          const emailExists = users.find(
+            (u) => u.email === email && u.email !== currentUser.email
+          );
+          if (emailExists) {
+            showMessage(
+              'This email is already registered by another user.',
+              'error'
+            );
+            return;
+          }
+
+          currentUser.username = username;
+          currentUser.email = email;
+          currentUser.phone = document
+            .getElementById('edit-phone')
+            .value.trim();
+          currentUser.country = document
+            .getElementById('edit-country')
+            .value.trim();
+          currentUser.address = document
+            .getElementById('edit-address')
+            .value.trim();
+          currentUser.city = document.getElementById('edit-city').value.trim();
+          currentUser.state = document
+            .getElementById('edit-state')
+            .value.trim();
+          currentUser.zip = document.getElementById('edit-zip').value.trim();
+          currentUser.updatedAt = new Date().toISOString();
+
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+          // Update in users list
+          users = users.map((u) =>
+            u.email === currentUser.email ? currentUser : u
+          );
+          localStorage.setItem('users', JSON.stringify(users));
+
+          showMessage('Profile updated successfully!', 'success');
+          setTimeout(() => {
+            renderProfilePage();
+          }, 1000);
+        });
+      }
+
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function logoutUser() {
+        localStorage.removeItem('currentUser');
+        showMessage('You have been logged out successfully.', 'success');
+        setTimeout(() => {
+          renderProfilePage();
+        }, 1000);
+      }
+
+      // Add CSS animations for messages
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideInRight {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideOutRight {
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

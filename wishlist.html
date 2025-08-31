@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wishlist - ShopSphere</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo" onclick="window.location.href='index.html'">
+          <h1>ShopSphere</h1>
+        </div>
+
+        <div class="search-container">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            id="main-search"
+          />
+        </div>
+
+        <div class="nav-icons">
+          <div class="nav-icon" onclick="window.location.href='cart.html'">
+            <i class="bx bx-cart"></i>
+            <span class="cart-badge" id="cart-count">0</span>
+          </div>
+          <div class="nav-icon" onclick="window.location.href='wishlist.html'">
+            <i class="bx bx-heart"></i>
+          </div>
+          <div class="nav-icon" onclick="window.location.href='profile.html'">
+            <i class="bx bx-user"></i>
+          </div>
+        </div>
+      </nav>
+
+      <div class="main-nav">
+        <div class="nav-container">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li class="categories-dropdown">
+              <a href="#" class="categories-link"
+                >Categories <i class="bx bx-chevron-down"></i
+              ></a>
+              <ul class="categories-menu">
+                <li>
+                  <a href="shop.html?category=electronics">Electronics</a>
+                </li>
+                <li><a href="shop.html?category=clothing">Clothing</a></li>
+                <li><a href="shop.html?category=books">Books</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="wishlist-section redesigned-wishlist">
+        <h2>My Wishlist</h2>
+        <div class="wishlist-grid">
+          <div class="wishlist-list-column">
+            <div class="wishlist-container" id="wishlist-container">
+              <!-- Wishlist items will be loaded here -->
+            </div>
+          </div>
+          <div class="wishlist-summary-column">
+            <div class="wishlist-summary-card" id="wishlist-summary-card">
+              <h3>Wishlist Summary</h3>
+              <div class="wishlist-summary-box wishlist-items-box">
+                <span id="wishlist-total-items">0</span> items
+              </div>
+              <div class="wishlist-summary-box wishlist-value-box">
+                Total Value: <span id="wishlist-total-value">$0.00</span>
+              </div>
+              <div class="wishlist-summary-box wishlist-checkout-box">
+                <button class="checkout-btn" id="wishlist-checkout-btn">
+                  <i class="bx bx-credit-card"></i> Check Out
+                </button>
+              </div>
+              <div class="wishlist-summary-catchy-text" style="width:100%;text-align:center;margin-top:0.5rem;color:#00ff88;font-size:1.1rem;font-weight:600;">
+                Don't let your favorites slip away—checkout now and make them yours!
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ShopSphere</h3>
+          <p>
+            Where style meets sophistication. Discover the latest trends in
+            ShopSphere and redefine your wardrobe with our curated collection.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-pinterest"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="shop.html?category=clothing">Clothing</a></li>
+            <li><a href="shop.html?category=electronics">Electronics</a></li>
+            <li><a href="shop.html?category=books">Books</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Customer Service</h4>
+          <ul class="footer-links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns & Exchanges</a></li>
+            <li><a href="#">Size Guide</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Sustainability</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section newsletter-section">
+          <h4>Newsletter</h4>
+          <p>
+            Subscribe to get updates on new arrivals, exclusive offers, and
+            fashion tips.
+          </p>
+          <form class="newsletter-form" id="newsletter-form">
+            <div class="input-group">
+              <input type="email" placeholder="Enter your email" required />
+              <button type="submit" class="newsletter-btn">
+                <i class="bx bx-send"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <p>&copy; 2024 ShopSphere. All rights reserved.</p>
+          <div class="payment-methods">
+            <i class="bx bxl-visa"></i>
+            <i class="bx bxl-mastercard"></i>
+            <i class="bx bxl-paypal"></i>
+            <i class="bx bxl-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script>
+      // Ensure products.js wishlist functions are available globally
+      if (typeof getWishlist !== 'undefined') window.getWishlist = getWishlist;
+      if (typeof removeFromWishlist !== 'undefined') window.removeFromWishlist = removeFromWishlist;
+      if (typeof moveFromWishlistToCart !== 'undefined') window.moveFromWishlistToCart = moveFromWishlistToCart;
+      if (typeof formatPrice !== 'undefined') window.formatPrice = formatPrice;
+      if (typeof getCart !== 'undefined') window.getCart = getCart;
+    </script>
+    <script>
+      // Wishlist functionality with summary card
+      document.addEventListener('DOMContentLoaded', function () {
+        updateCartCountDisplay();
+        updateWishlistCountDisplay();
+        loadWishlistItems();
+        updateWishlistSummary();
+        // If move-all-to-cart-btn exists, add event
+        var moveAllBtn = document.getElementById('move-all-to-cart-btn');
+        if (moveAllBtn) moveAllBtn.addEventListener('click', moveAllToCart);
+        // Make checkout button functional
+        var checkoutBtn = document.getElementById('wishlist-checkout-btn');
+        if (checkoutBtn) checkoutBtn.addEventListener('click', function() {
+          // Move all wishlist items to cart before navigating
+          const wishlist = getWishlist();
+          wishlist.forEach(item => {
+            moveFromWishlistToCart(item.productId);
+          });
+          updateCartCountDisplay();
+          loadWishlistItems();
+          window.location.href = 'checkout.html';
+        });
+      });
+
+      function loadWishlistItems() {
+        const wishlistContainer = document.getElementById('wishlist-container');
+        const wishlist = getWishlist();
+
+        if (wishlist.length === 0) {
+          wishlistContainer.innerHTML = `
+            <div class="empty-wishlist">
+              <i class="bx bx-heart" style="font-size: 4rem; color: #666; margin-bottom: 1rem"></i>
+              <h3>Your wishlist is empty</h3>
+              <p>Start adding products to your wishlist to see them here.</p>
+              <a href="shop.html" class="cta-button">Start Shopping</a>
+            </div>
+          `;
+          updateWishlistSummary();
+          return;
+        }
+
+        wishlistContainer.innerHTML = '';
+        wishlist.forEach((item) => {
+          const wishlistItem = createWishlistItemElement(item);
+          wishlistContainer.appendChild(wishlistItem);
+        });
+        updateWishlistSummary();
+      }
+
+      function createWishlistItemElement(item) {
+        const wishlistItem = document.createElement('div');
+        wishlistItem.className = 'wishlist-item';
+        wishlistItem.innerHTML = `
+          <div class="wishlist-item-image">
+            <img src="${item.image}" alt="${item.name}" loading="lazy">
+          </div>
+          <div class="wishlist-item-details">
+            <h4>${item.name}</h4>
+            <p class="wishlist-item-price">${formatPrice(item.price)}</p>
+            <p class="wishlist-item-category">${item.category}</p>
+          </div>
+          <div class="wishlist-item-actions">
+            <button class="move-to-cart-btn" id="move-to-cart-btn-${item.productId}">
+              <i class="bx bx-cart-add"></i> Move to Cart
+            </button>
+            <button class="remove-from-wishlist-btn" id="remove-from-wishlist-btn-${item.productId}">
+              <i class="bx bx-trash"></i> Remove
+            </button>
+          </div>
+        `;
+        // Attach event listeners directly to avoid global function collision
+        setTimeout(() => {
+          const moveBtn = document.getElementById(`move-to-cart-btn-${item.productId}`);
+          if (moveBtn) moveBtn.onclick = function() { handleMoveToCart(item.productId); };
+          const removeBtn = document.getElementById(`remove-from-wishlist-btn-${item.productId}`);
+          if (removeBtn) removeBtn.onclick = function() { handleRemoveFromWishlist(item.productId); };
+        }, 0);
+        return wishlistItem;
+      }
+
+      function handleMoveToCart(productId) {
+        const result = window.moveFromWishlistToCart ? window.moveFromWishlistToCart(productId) : (typeof moveFromWishlistToCart === 'function' ? moveFromWishlistToCart(productId) : false);
+        if (result) {
+          showNotification('Moved to cart successfully!', 'success');
+          loadWishlistItems(); // Reload wishlist
+          updateCartCountDisplay(); // Update cart count
+        } else {
+          showNotification('Failed to move to cart', 'error');
+        }
+      }
+
+      function handleRemoveFromWishlist(productId) {
+        const result = window.removeFromWishlist ? window.removeFromWishlist(productId) : (typeof removeFromWishlist === 'function' ? removeFromWishlist(productId) : false);
+        if (result) {
+          showNotification('Removed from wishlist', 'info');
+          loadWishlistItems(); // Reload wishlist
+        } else {
+          showNotification('Failed to remove from wishlist', 'error');
+        }
+      }
+
+      function moveAllToCart() {
+        const wishlist = getWishlist();
+        if (wishlist.length === 0) {
+          showNotification('Wishlist is empty!', 'info');
+          return;
+        }
+        let movedCount = 0;
+        wishlist.forEach(item => {
+          if (moveFromWishlistToCart(item.productId)) {
+            movedCount++;
+          }
+        });
+        if (movedCount > 0) {
+          showNotification(`Moved ${movedCount} items to cart!`, 'success');
+          loadWishlistItems();
+          updateCartCountDisplay();
+        } else {
+          showNotification('No items moved.', 'error');
+        }
+      }
+
+      function updateWishlistSummary() {
+        const wishlist = getWishlist();
+        const totalItems = wishlist.length;
+        const totalValue = wishlist.reduce((sum, item) => sum + parseFloat(item.price), 0);
+        document.getElementById('wishlist-total-items').textContent = totalItems;
+        document.getElementById('wishlist-total-value').textContent = formatPrice(totalValue);
+      }
+
+      function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+
+        const bgColor =
+          type === 'success'
+            ? '#4caf50'
+            : type === 'error'
+            ? '#f44336'
+            : '#2196f3';
+
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          padding: 1rem 1.5rem;
+          background: ${bgColor};
+          color: white;
+          border-radius: 5px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+          z-index: 10000;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          font-weight: 500;
+        `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.style.transform = 'translateX(0)';
+        }, 100);
+
+        setTimeout(() => {
+          notification.style.transform = 'translateX(100%)';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 300);
+        }, 3000);
+      }
+
+      function updateCartCountDisplay() {
+        const cartCountElements = document.querySelectorAll('#cart-count');
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const cartCount = cart.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
+
+        cartCountElements.forEach((element) => {
+          element.textContent = cartCount;
+          if (cartCount === 0) {
+            element.style.display = 'none';
+          } else {
+            element.style.display = 'flex';
+          }
+        });
+      }
+
+      function updateWishlistCountDisplay() {
+        const wishlistCountElements =
+          document.querySelectorAll('#wishlist-count');
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        const wishlistCount = wishlist.length;
+
+        wishlistCountElements.forEach((element) => {
+          element.textContent = wishlistCount;
+          if (wishlistCount === 0) {
+            element.style.display = 'none';
+          } else {
+            element.style.display = 'flex';
+          }
+        });
+      }
+
+      // Utility function to format currency
+      function formatPrice(price) {
+        return `$${parseFloat(price).toFixed(2)}`;
+      }
+    </script>

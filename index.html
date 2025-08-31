@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopSphere - Home</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo" onclick="window.location.href='index.html'">
+          <h1>ShopSphere</h1>
+        </div>
+
+        <div class="search-container">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            id="main-search"
+          />
+        </div>
+
+        <div class="nav-icons">
+          <div class="nav-icon" onclick="window.location.href='cart.html'">
+            <i class="bx bx-cart"></i>
+            <span class="cart-badge" id="cart-count">0</span>
+          </div>
+          <div class="nav-icon" onclick="window.location.href='wishlist.html'">
+            <i class="bx bx-heart"></i>
+            <span class="wishlist-badge" id="wishlist-count">0</span>
+          </div>
+          <div class="nav-icon" onclick="window.location.href='profile.html'">
+            <i class="bx bx-user"></i>
+          </div>
+        </div>
+      </nav>
+
+      <div class="main-nav">
+        <div class="nav-container">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li class="categories-dropdown">
+              <a href="#" class="categories-link"
+                >Categories <i class="bx bx-chevron-down"></i
+              ></a>
+              <ul class="categories-menu">
+                <li>
+                  <a href="shop.html?category=electronics">Electronics</a>
+                </li>
+                <li><a href="shop.html?category=clothing">Clothing</a></li>
+                <li><a href="shop.html?category=books">Books</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <!-- Hero background with product showcase -->
+        <div class="hero-background">
+          <div class="hero-product-showcase">
+            <div class="product-showcase-item">
+              <img
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop&crop=center&auto=format&q=80"
+                alt="Premium Headphones"
+              />
+            </div>
+            <div class="product-showcase-item">
+              <img
+                src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&crop=center&auto=format&q=80"
+                alt="Smart Watch"
+              />
+            </div>
+            <div class="product-showcase-item">
+              <img
+                src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop&crop=center&auto=format&q=80"
+                alt="Fashion T-Shirt"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero content -->
+        <div class="hero-content">
+          <div class="hero-text">
+            <h2>Discover Your Perfect Style</h2>
+            <p>
+              Shop the latest trends in electronics, fashion, and lifestyle.
+              From premium headphones to designer clothing, find everything you
+              need to elevate your daily life.
+            </p>
+
+            <div class="hero-features">
+              <div class="feature-item">
+                <i class="bx bx-shipping-fast"></i>
+                <span>Free Shipping</span>
+              </div>
+              <div class="feature-item">
+                <i class="bx bx-shield-check"></i>
+                <span>Secure Payment</span>
+              </div>
+              <div class="feature-item">
+                <i class="bx bx-undo"></i>
+                <span>Easy Returns</span>
+              </div>
+            </div>
+
+            <div class="hero-buttons">
+              <a href="shop.html" class="cta-button primary">Start Shopping</a>
+              <a
+                href="shop.html?category=electronics"
+                class="cta-button secondary"
+                >Electronics</a
+              >
+              <a href="shop.html?category=clothing" class="cta-button secondary"
+                >Fashion</a
+              >
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-main-image">
+              <img
+                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&h=600&fit=crop&crop=center&auto=format&q=80"
+                alt="Shopping Experience"
+              />
+            </div>
+            <div class="floating-badge">
+              <span class="badge-text">50% OFF</span>
+              <span class="badge-subtitle">New Arrivals</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="featured-products">
+        <h3>Featured Products</h3>
+        <div class="products-grid" id="featured-products">
+          <!-- Products will be loaded here via JavaScript -->
+        </div>
+      </section>
+
+      <!-- Sales Banner Section -->
+      <section class="sales-banner">
+        <div class="sales-banner-content">
+          <div class="sales-banner-left">
+            <i class="bx bxs-hot" style="font-size: 3rem; color: #ff6b35"></i>
+            <h2>Flash Sale!</h2>
+            <p>
+              Up to <span class="highlight">70% OFF</span> on select
+              products.<br />Limited time only. Shop now and save big!
+            </p>
+            <a href="shop.html" class="cta-button primary sales-banner-btn"
+              >Shop Sale</a
+            >
+          </div>
+          <div class="sales-banner-right">
+            <img
+              src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500&h=350&fit=crop&auto=format&q=80"
+              alt="Sale Banner"
+              class="sales-banner-img"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="best-selling-products">
+        <h3>Best Selling Products</h3>
+        <div class="products-grid" id="best-selling-products">
+          <!-- Best selling products will be loaded here via JavaScript -->
+        </div>
+      </section>
+
+      <!-- Testimonials Carousel Section -->
+      <section class="testimonials-section">
+        <h3>What Our Customers Say</h3>
+        <div class="testimonials-carousel" id="testimonials-carousel">
+          <button class="carousel-arrow left" id="testimonial-prev">
+            <i class="bx bx-chevron-left"></i>
+          </button>
+          <div class="testimonials-wrapper">
+            <div class="testimonial-card active">
+              <div class="testimonial-quote">
+                “ShopSphere made my shopping experience seamless and fun. Highly
+                recommended!”
+              </div>
+              <div class="testimonial-user">
+                <img
+                  src="https://randomuser.me/api/portraits/women/44.jpg"
+                  alt="User"
+                  class="testimonial-avatar"
+                />
+                <span class="testimonial-name">Priya Sharma</span>
+                <span class="testimonial-role">Fashion Enthusiast</span>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                “Amazing deals and fast delivery. I always find what I need at
+                ShopSphere!”
+              </div>
+              <div class="testimonial-user">
+                <img
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  alt="User"
+                  class="testimonial-avatar"
+                />
+                <span class="testimonial-name">Rahul Verma</span>
+                <span class="testimonial-role">Tech Lover</span>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                “Great customer service and quality products. ShopSphere is my
+                go-to store!”
+              </div>
+              <div class="testimonial-user">
+                <img
+                  src="https://randomuser.me/api/portraits/women/68.jpg"
+                  alt="User"
+                  class="testimonial-avatar"
+                />
+                <span class="testimonial-name">Aarti Patel</span>
+                <span class="testimonial-role">Home Chef</span>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-arrow right" id="testimonial-next">
+            <i class="bx bx-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <script>
+        // Simple testimonials carousel logic
+        document.addEventListener('DOMContentLoaded', function () {
+          const cards = document.querySelectorAll('.testimonial-card');
+          let current = 0;
+          function showCard(idx) {
+            cards.forEach((card, i) => {
+              card.classList.toggle('active', i === idx);
+            });
+          }
+          document.getElementById('testimonial-prev').onclick = function () {
+            current = (current - 1 + cards.length) % cards.length;
+            showCard(current);
+          };
+          document.getElementById('testimonial-next').onclick = function () {
+            current = (current + 1) % cards.length;
+            showCard(current);
+          };
+        });
+      </script>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ShopSphere</h3>
+          <p>
+            Your one-stop destination for quality electronics, clothing, and
+            books. Discover amazing products at great prices with ShopSphere.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="social-link"><i class="bx bxl-pinterest"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="shop.html?category=clothing">Clothing</a></li>
+            <li><a href="shop.html?category=electronics">Electronics</a></li>
+            <li><a href="shop.html?category=books">Books</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Customer Service</h4>
+          <ul class="footer-links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns & Exchanges</a></li>
+            <li><a href="#">Size Guide</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Sustainability</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section newsletter-section">
+          <h4>Newsletter</h4>
+          <p>
+            Subscribe to get updates on new arrivals, exclusive offers, and
+            fashion tips.
+          </p>
+          <form class="newsletter-form" id="newsletter-form">
+            <div class="input-group">
+              <input type="email" placeholder="Enter your email" required />
+              <button type="submit" class="newsletter-btn">
+                <i class="bx bx-send"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <p>&copy; 2024 ShopSphere. All rights reserved.</p>
+          <div class="payment-methods">
+            <i class="bx bxl-visa"></i>
+            <i class="bx bxl-mastercard"></i>
+            <i class="bx bxl-paypal"></i>
+            <i class="bx bxl-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
