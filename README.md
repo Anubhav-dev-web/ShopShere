@@ -18,7 +18,7 @@ A modern, responsive e-commerce web app for discovering and shopping the latest 
 ## 🖼️ Screenshots
 
 ### Homepage
-![Homepage](assets/screenshots/homepage.png)
+![Homepage](assets/screenshots/Homepage.png)
 
 ### Flash Sale Banner
 ![Flash Sale](assets/screenshots/flash-sale.png)
@@ -27,7 +27,7 @@ A modern, responsive e-commerce web app for discovering and shopping the latest 
 ![Product Grid](assets/screenshots/product-grid.png)
 
 ### Footer
-![Footer](assets/screenshots/footer.png)
+![Footer](assets/screenshots/Footer.png)
 
 ---
 
