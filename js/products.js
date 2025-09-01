@@ -6,7 +6,7 @@ const products = [
     price: 89.99,
     category: 'electronics',
     image:
-      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&h=500&fit=crop&crop=center&auto=format&q=80', // electronics
     description:
       'High-quality wireless headphones with noise cancellation and long battery life. Perfect for music lovers and professionals.',
   },
@@ -16,7 +16,7 @@ const products = [
     price: 199.99,
     category: 'electronics',
     image:
-      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=500&h=500&fit=crop&crop=center&auto=format&q=80', // electronics
     description:
       'Advanced fitness tracking with heart rate monitor and GPS capabilities. Track your workouts and stay connected.',
   },
@@ -26,7 +26,7 @@ const products = [
     price: 29.99,
     category: 'clothing',
     image:
-      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500&h=500&fit=crop&crop=center&auto=format&q=80', // clothing
     description:
       'Comfortable and stylish cotton t-shirt available in multiple colors. Perfect for everyday wear and casual outings.',
   },
@@ -36,7 +36,7 @@ const products = [
     price: 79.99,
     category: 'clothing',
     image:
-      'https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=500&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=500&h=500&fit=crop&crop=center&auto=format&q=80', // clothing
     description:
       'Premium denim jeans with perfect fit and modern styling. Classic design that never goes out of style.',
   },
@@ -46,7 +46,7 @@ const products = [
     price: 39.99,
     category: 'books',
     image:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500&h=500&fit=crop&crop=center&auto=format&q=80', // books
     description:
       'Comprehensive guide to programming basics and best practices. Essential reading for aspiring developers.',
   },
@@ -56,7 +56,7 @@ const products = [
     price: 49.99,
     category: 'books',
     image:
-      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=500&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=500&h=500&fit=crop&crop=center&auto=format&q=80', // books
     description:
       'Essential strategies for building and growing successful businesses. Learn from industry experts and proven methods.',
   },
@@ -212,7 +212,7 @@ function getProductById(id) {
 }
 
 function getProductsByCategory(category) {
-  if (!category) return products;
+  if (!category || category === '') return products;
   return products.filter((product) => product.category === category);
 }
 

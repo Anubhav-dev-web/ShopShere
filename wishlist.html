@@ -174,14 +174,13 @@
 
     <script src="js/products.js"></script>
     <script>
-      // Ensure products.js wishlist functions are available globally
-      if (typeof getWishlist !== 'undefined') window.getWishlist = getWishlist;
-      if (typeof removeFromWishlist !== 'undefined') window.removeFromWishlist = removeFromWishlist;
-      if (typeof moveFromWishlistToCart !== 'undefined') window.moveFromWishlistToCart = moveFromWishlistToCart;
-      if (typeof formatPrice !== 'undefined') window.formatPrice = formatPrice;
-      if (typeof getCart !== 'undefined') window.getCart = getCart;
-    </script>
-    <script>
+      // Ensure products.js wishlist functions are available globally and robustly
+      window.getWishlist = typeof getWishlist !== 'undefined' ? getWishlist : () => [];
+      window.removeFromWishlist = typeof removeFromWishlist !== 'undefined' ? removeFromWishlist : () => false;
+      window.moveFromWishlistToCart = typeof moveFromWishlistToCart !== 'undefined' ? moveFromWishlistToCart : () => false;
+      window.formatPrice = typeof formatPrice !== 'undefined' ? formatPrice : (p) => `$${parseFloat(p).toFixed(2)}`;
+      window.getCart = typeof getCart !== 'undefined' ? getCart : () => [];
+
       // Wishlist functionality with summary card
       document.addEventListener('DOMContentLoaded', function () {
         updateCartCountDisplay();
@@ -195,10 +194,27 @@
         var checkoutBtn = document.getElementById('wishlist-checkout-btn');
         if (checkoutBtn) checkoutBtn.addEventListener('click', function() {
           // Move all wishlist items to cart before navigating
-          const wishlist = getWishlist();
-          wishlist.forEach(item => {
-            moveFromWishlistToCart(item.productId);
+          const wishlist = window.getWishlist();
+          let cart = window.getCart();
+          wishlist.forEach(function(item) {
+            // Check if already in cart
+            const existing = cart.find(c => c.productId === item.productId);
+            if (existing) {
+              existing.quantity += 1;
+            } else {
+              cart.push({
+                productId: item.productId,
+                name: item.name,
+                price: item.price,
+                image: item.image,
+                quantity: 1,
+              });
+            }
           });
+          // Save updated cart
+          localStorage.setItem('cart', JSON.stringify(cart));
+          // Empty wishlist
+          localStorage.setItem('wishlist', JSON.stringify([]));
           updateCartCountDisplay();
           loadWishlistItems();
           window.location.href = 'checkout.html';

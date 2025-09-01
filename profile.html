@@ -237,10 +237,18 @@
         if (currentUser) {
           card.innerHTML = `
             <div class="profile-avatar-large">
-              <i class="bx bx-user" style="font-size: 4rem; color: #ccc"></i>
+              ${
+                currentUser.avatarUrl
+                  ? `<img src="${currentUser.avatarUrl}" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`
+                  : `<i class="bx bx-user" style="font-size: 4rem; color: #ccc"></i>`
+              }
             </div>
             <h3>${currentUser.username}</h3>
             <p>${currentUser.email}</p>
+            <button class="cta-button" onclick="window.location.href='orders.html'" style="margin-bottom:0.8rem;background:linear-gradient(135deg,#00ff88 0%,#232323 100%);color:#000;font-weight:700;">
+              <i class="bx bx-package" style="margin-right: 8px;"></i>
+              View Orders
+            </button>
             <button class="cta-button" onclick="logoutUser()">
               <i class="bx bx-log-out" style="margin-right: 8px;"></i>
               Logout

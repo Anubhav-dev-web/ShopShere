@@ -370,3 +370,64 @@ function setupNewsletterSubscription() {
 function formatPrice(price) {
   return `$${parseFloat(price).toFixed(2)}`;
 }
+
+function saveOrder(cart) {
+  let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const orderId = orders.length + 1;
+  const total = cart.reduce(
+    (sum, item) => sum + parseFloat(item.price) * item.quantity,
+    0
+  );
+  const order = {
+    id: orderId,
+    date: new Date().toISOString(),
+    items: cart.map((item) => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: `$${parseFloat(item.price).toFixed(2)}`,
+    })),
+    total: `$${total.toFixed(2)}`,
+    status: 'Placed',
+  };
+  orders.push(order);
+  localStorage.setItem('orders', JSON.stringify(orders));
+}
+
+// Patch order placement logic in checkout
+if (window.location.pathname.includes('checkout.html')) {
+  document.addEventListener('DOMContentLoaded', function () {
+    const placeOrderBtn = document.getElementById('place-order-btn');
+    if (placeOrderBtn) {
+      placeOrderBtn.addEventListener('click', function () {
+        // Validate and process order
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (cart.length) {
+          saveOrder(cart);
+          localStorage.removeItem('cart');
+        }
+      });
+    }
+  });
+}
+
+function autofillShippingInfo() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser) return;
+  const fields = [
+    { id: 'full-name', value: currentUser.username },
+    { id: 'email', value: currentUser.email },
+    { id: 'address', value: currentUser.address },
+    { id: 'city', value: currentUser.city },
+    { id: 'zip-code', value: currentUser.zip },
+  ];
+  fields.forEach((field) => {
+    const input = document.getElementById(field.id);
+    if (input && field.value) input.value = field.value;
+  });
+}
+
+if (window.location.pathname.includes('checkout.html')) {
+  document.addEventListener('DOMContentLoaded', function () {
+    autofillShippingInfo();
+  });
+}
