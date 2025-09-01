@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account - ShopSphere</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .signup-form {
+        background: #111;
+        border-radius: 15px;
+        padding: 2.5rem;
+        box-shadow: 0 2px 10px rgba(34, 197, 94, 0.15);
+        max-width: 450px;
+        margin: 40px auto;
+        border: 1px solid #333;
+        animation: fadeInUp 1.2s cubic-bezier(0.23, 1.01, 0.32, 1) both;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        align-items: center;
+      }
+      .signup-title {
+        color: #22c55e;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2rem;
+        letter-spacing: 1px;
+      }
+      .signup-form input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 1rem 1.2rem;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: #222;
+        color: #fff;
+        font-size: 1.05rem;
+        transition: all 0.3s ease;
+        margin-bottom: 0.7rem;
+      }
+      .signup-form input:focus {
+        outline: none;
+        border-color: #22c55e;
+        background: #111;
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.1);
+      }
+      .signup-form input::placeholder {
+        color: #666;
+      }
+      .signup-form .cta-button {
+        width: 100%;
+        margin-top: 1rem;
+        background: #22c55e;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        border-radius: 5px;
+        padding: 1rem 1.5rem;
+        font-size: 1.05rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+      }
+      .signup-form .cta-button:hover {
+        background: #16a34a;
+        transform: translateY(-2px);
+      }
+      .login-link {
+        display: block;
+        text-align: center;
+        margin-top: 1.2rem;
+        color: #22c55e;
+        text-decoration: underline;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="signup-section">
+        <form class="signup-form" id="signup-form">
+          <h2 class="signup-title">Create Account</h2>
+          <input
+            type="text"
+            id="signup-username"
+            placeholder="Full Name"
+            required
+          />
+          <input
+            type="email"
+            id="signup-email"
+            placeholder="Email Address"
+            required
+          />
+          <input
+            type="password"
+            id="signup-password"
+            placeholder="Password (min 6 characters)"
+            required
+            minlength="6"
+          />
+          <button type="submit" class="cta-button">
+            <i class="bx bx-user-plus" style="margin-right: 8px"></i> Create
+            Account
+          </button>
+          <a href="login.html" class="login-link"
+            >Already have an account? Login</a
+          >
+        </form>
+        <div
+          id="signup-message"
+          style="text-align: center; margin-top: 1rem; font-size: 1rem"
+        ></div>
+      </section>
+    </main>
+    <script>
+      document
+        .getElementById('signup-form')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+          const username = document
+            .getElementById('signup-username')
+            .value.trim();
+          const email = document.getElementById('signup-email').value.trim();
+          const password = document.getElementById('signup-password').value;
+          const messageDiv = document.getElementById('signup-message');
+          if (!username || !email || !password) {
+            messageDiv.style.color = '#ef4444';
+            messageDiv.textContent = 'Please fill in all fields.';
+            return;
+          }
+          if (password.length < 6) {
+            messageDiv.style.color = '#ef4444';
+            messageDiv.textContent =
+              'Password must be at least 6 characters long.';
+            return;
+          }
+          let users = JSON.parse(localStorage.getItem('users') || '[]');
+          if (users.find((u) => u.email === email)) {
+            messageDiv.style.color = '#ef4444';
+            messageDiv.textContent =
+              'An account with this email already exists.';
+            return;
+          }
+          const newUser = {
+            username,
+            email,
+            password,
+            createdAt: new Date().toISOString(),
+          };
+          users.push(newUser);
+          localStorage.setItem('users', JSON.stringify(users));
+          localStorage.setItem('currentUser', JSON.stringify(newUser));
+          messageDiv.style.color = '#22c55e';
+          messageDiv.textContent = 'Account created! Redirecting...';
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 1200);
+        });
+    </script>
+  </body>
+</html>

@@ -258,12 +258,19 @@ function showNotification(message, type = 'info') {
 
 // Cart functions (shared across pages)
 function getCart() {
-  const cart = localStorage.getItem('cart');
-  return cart ? JSON.parse(cart) : [];
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser || !currentUser.email) return [];
+  const userData = getUserData(currentUser.email);
+  return userData.cart || [];
 }
 
 function addToCart(productId) {
-  const cart = getCart();
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser || !currentUser.email) return;
+  const key = 'user_' + currentUser.email;
+  const userData = JSON.parse(localStorage.getItem(key) || '{}');
+  userData.cart = userData.cart || [];
+  const cart = userData.cart;
   const existingItem = cart.find((item) => item.productId === productId);
 
   if (existingItem) {
@@ -281,7 +288,9 @@ function addToCart(productId) {
     }
   }
 
-  localStorage.setItem('cart', JSON.stringify(cart));
+  userData.cart = cart;
+  localStorage.setItem(key, JSON.stringify(userData));
+  localStorage.setItem('cart', JSON.stringify(cart)); // for compatibility
 
   // Show success message
   showNotification('Product added to cart!', 'success');
@@ -290,107 +299,60 @@ function addToCart(productId) {
   updateCartCount();
 }
 
-function showNotification(message, type = 'info') {
-  // Create notification element
-  const notification = document.createElement('div');
-  notification.className = `notification notification-${type}`;
-  notification.textContent = message;
-
-  // Style the notification
-  notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 1rem 1.5rem;
-        background: ${type === 'success' ? '#ffffff' : '#cccccc'};
-        color: #000000;
-        border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(255,255,255,0.2);
-        z-index: 10000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        font-weight: 500;
-        border: 1px solid #333;
-    `;
-
-  // Add to page
-  document.body.appendChild(notification);
-
-  // Animate in
-  setTimeout(() => {
-    notification.style.transform = 'translateX(0)';
-  }, 100);
-
-  // Remove after 3 seconds
-  setTimeout(() => {
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-      if (notification.parentNode) {
-        notification.parentNode.removeChild(notification);
-      }
-    }, 300);
-  }, 3000);
+function getWishlist() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser || !currentUser.email) return [];
+  const userData = getUserData(currentUser.email);
+  return userData.wishlist || [];
 }
 
-// Newsletter subscription functionality
-function setupNewsletterSubscription() {
-  const newsletterForm = document.getElementById('newsletter-form');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const emailInput = this.querySelector('input[type="email"]');
-      const email = emailInput.value.trim();
-
-      if (email) {
-        // Simulate newsletter subscription
-        showNotification(
-          'Thank you for subscribing to our newsletter!',
-          'success'
-        );
-        emailInput.value = '';
-
-        // Store subscription in localStorage (in a real app, this would go to a server)
-        const subscriptions = JSON.parse(
-          localStorage.getItem('newsletterSubscriptions') || '[]'
-        );
-        if (!subscriptions.includes(email)) {
-          subscriptions.push(email);
-          localStorage.setItem(
-            'newsletterSubscriptions',
-            JSON.stringify(subscriptions)
-          );
-        }
-      }
-    });
+function addToWishlist(productId) {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser || !currentUser.email) return;
+  const key = 'user_' + currentUser.email;
+  const userData = JSON.parse(localStorage.getItem(key) || '{}');
+  userData.wishlist = userData.wishlist || [];
+  if (!userData.wishlist.includes(productId)) {
+    userData.wishlist.push(productId);
+    localStorage.setItem(key, JSON.stringify(userData));
+    localStorage.setItem('wishlist', JSON.stringify(userData.wishlist)); // for compatibility
   }
 }
 
-// Utility function to format currency
-function formatPrice(price) {
-  return `$${parseFloat(price).toFixed(2)}`;
+function removeFromWishlist(productId) {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser || !currentUser.email) return;
+  const key = 'user_' + currentUser.email;
+  const userData = JSON.parse(localStorage.getItem(key) || '{}');
+  userData.wishlist = userData.wishlist || [];
+  userData.wishlist = userData.wishlist.filter((id) => id !== productId);
+  localStorage.setItem(key, JSON.stringify(userData));
+  localStorage.setItem('wishlist', JSON.stringify(userData.wishlist)); // for compatibility
 }
 
+// Debug: Notify when order is saved
 function saveOrder(cart) {
-  let orders = JSON.parse(localStorage.getItem('orders') || '[]');
-  const orderId = orders.length + 1;
-  const total = cart.reduce(
-    (sum, item) => sum + parseFloat(item.price) * item.quantity,
-    0
-  );
-  const order = {
-    id: orderId,
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser || !currentUser.email) return;
+  const key = 'user_' + currentUser.email;
+  let userData = JSON.parse(localStorage.getItem(key) || '{}');
+  userData.orders = userData.orders || [];
+  const newOrder = {
+    id: Date.now(),
     date: new Date().toISOString(),
-    items: cart.map((item) => ({
-      name: item.name,
-      quantity: item.quantity,
-      price: `$${parseFloat(item.price).toFixed(2)}`,
-    })),
-    total: `$${total.toFixed(2)}`,
+    items: cart,
+    total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
     status: 'Placed',
   };
-  orders.push(order);
-  localStorage.setItem('orders', JSON.stringify(orders));
+  userData.orders.push(newOrder);
+  userData.cart = [];
+  localStorage.setItem(key, JSON.stringify(userData));
+  localStorage.setItem('orders', JSON.stringify(userData.orders)); // for legacy code
+  localStorage.setItem('cart', JSON.stringify([])); // clear global cart
+  showNotification(
+    'Order placed and saved for user: ' + currentUser.email,
+    'success'
+  );
 }
 
 // Patch order placement logic in checkout
@@ -399,11 +361,18 @@ if (window.location.pathname.includes('checkout.html')) {
     const placeOrderBtn = document.getElementById('place-order-btn');
     if (placeOrderBtn) {
       placeOrderBtn.addEventListener('click', function () {
-        // Validate and process order
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        // Always use per-user cart
+        const currentUser = JSON.parse(
+          localStorage.getItem('currentUser') || 'null'
+        );
+        let cart = [];
+        if (currentUser && currentUser.email) {
+          const key = 'user_' + currentUser.email;
+          const userData = JSON.parse(localStorage.getItem(key) || '{}');
+          cart = userData.cart || [];
+        }
         if (cart.length) {
           saveOrder(cart);
-          localStorage.removeItem('cart');
         }
       });
     }
@@ -430,4 +399,131 @@ if (window.location.pathname.includes('checkout.html')) {
   document.addEventListener('DOMContentLoaded', function () {
     autofillShippingInfo();
   });
+}
+
+function getUserKey(email) {
+  return `user_${email}`;
+}
+
+function initializeUserData(email) {
+  const key = getUserKey(email);
+  const userData = {
+    cart: [],
+    wishlist: [],
+    personalInfo: {},
+    orders: [],
+  };
+  localStorage.setItem(key, JSON.stringify(userData));
+}
+
+function getUserData(email) {
+  const key = getUserKey(email);
+  return JSON.parse(localStorage.getItem(key) || '{}');
+}
+
+function setUserData(email, data) {
+  const key = getUserKey(email);
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+// Patch account creation to initialize user data
+function setupSignUpForm() {
+  const form = document.getElementById('signup-form');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('signup-username').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    if (!username || !email || !password) {
+      showMessage('Please fill in all fields.', 'error');
+      return;
+    }
+    if (password.length < 6) {
+      showMessage('Password must be at least 6 characters long.', 'error');
+      return;
+    }
+    if (!isValidEmail(email)) {
+      showMessage('Please enter a valid email address.', 'error');
+      return;
+    }
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+    if (users.find((u) => u.email === email)) {
+      showMessage('An account with this email already exists.', 'error');
+      return;
+    }
+    const newUser = {
+      username,
+      email,
+      password,
+      createdAt: new Date().toISOString(),
+    };
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
+    initializeUserData(email); // Initialize fresh components for new user
+    showMessage(
+      'Account created successfully! Welcome to ShopSphere!',
+      'success'
+    );
+    setTimeout(() => {
+      renderProfilePage();
+    }, 1500);
+  });
+}
+
+// Patch sign-in to fetch and populate user data
+function signInUser(email) {
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const user = users.find((u) => u.email === email);
+  if (!user) return false;
+  localStorage.setItem('currentUser', JSON.stringify(user));
+  // Fetch user data and populate global/localStorage for app usage
+  const userData = getUserData(email);
+  localStorage.setItem('cart', JSON.stringify(userData.cart || []));
+  localStorage.setItem('wishlist', JSON.stringify(userData.wishlist || []));
+  localStorage.setItem('orders', JSON.stringify(userData.orders || []));
+  localStorage.setItem(
+    'personalInfo',
+    JSON.stringify(userData.personalInfo || {})
+  );
+  return true;
+}
+
+// On sign-in, load cart and wishlist from user data and update global keys for compatibility
+function syncUserDataToGlobal() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser || !currentUser.email) return;
+  const userData = getUserData(currentUser.email);
+  localStorage.setItem('cart', JSON.stringify(userData.cart || []));
+  localStorage.setItem('wishlist', JSON.stringify(userData.wishlist || []));
+}
+
+// Call this after sign-in
+if (
+  window.location.pathname.includes('login.html') ||
+  window.location.pathname.includes('profile.html')
+) {
+  document.addEventListener('DOMContentLoaded', function () {
+    syncUserDataToGlobal();
+  });
+}
+
+// When cart or wishlist is updated, also update user data
+function setCart(cart) {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser || !currentUser.email) return;
+  const userData = getUserData(currentUser.email);
+  userData.cart = cart;
+  setUserData(currentUser.email, userData);
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function setWishlist(wishlist) {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser || !currentUser.email) return;
+  const userData = getUserData(currentUser.email);
+  userData.wishlist = wishlist;
+  setUserData(currentUser.email, userData);
+  localStorage.setItem('wishlist', JSON.stringify(wishlist));
 }

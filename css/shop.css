@@ -1,22 +1,96 @@
 /* Shop page specific styles */
 
 /* Shop header */
-.shop-header {
-  text-align: center;
-  margin-bottom: 3rem;
-  padding: 2rem;
-  background: #111;
-  border-radius: 15px;
-  border: 1px solid #333;
+/* Creative shop header redesign */
+.shop-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
-
-.shop-header h2 {
-  font-size: 2.5rem;
-  color: #ffffff;
-  margin-bottom: 2rem;
-  text-transform: uppercase;
+.shop-header-left {
+  text-align: left;
+}
+.shop-header-right {
+  text-align: right;
+  min-width: 260px;
+  margin-top: 0.5rem;
+}
+.filters-creative {
+  justify-content: flex-end;
+}
+.shop-header-creative {
+  position: relative;
+  padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+  border-radius: 18px;
+  background: #111;
+  border: 1px solid #333;
+  margin-bottom: 3rem;
+  overflow: hidden;
+  box-shadow: 0 6px 32px rgba(0, 0, 0, 0.18);
+}
+.shop-header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #00ff88 0%, #232323 100%);
+  opacity: 0.08;
+  z-index: 1;
+  border-radius: 18px;
+}
+.shop-header-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.shop-title-gradient {
+  font-size: 2.7rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00ff88 0%, #fff 60%, #00ff88 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  margin-bottom: 1.2rem;
   letter-spacing: 2px;
-  font-weight: 300;
+  text-transform: uppercase;
+  display: inline-block;
+}
+.shop-subtitle {
+  color: #ccc;
+  font-size: 1.15rem;
+  margin-bottom: 2.2rem;
+  font-weight: 400;
+}
+.filters-creative {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.filter-label {
+  color: #00ff88;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+.filter-select {
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #00ff88;
+  border-radius: 25px;
+  background: #232323;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+.filter-select:focus {
+  outline: none;
+  border-color: #fff;
+  background: #111;
 }
 
 /* Filters */
